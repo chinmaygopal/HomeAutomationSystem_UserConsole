@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME AUTOMATION - SSNS</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/content/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/content/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/content/Site.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <h1 class="navbar-brand application-heading">HOME AUTOMATION - SMART SENSOR NETWORK SYSTEMS</h1>
+        </div>
+    </div>
+
+    <!--section for dynamic value getting-->
+    <section>
+        <div>
+            <form method="post" id="valSend_form">
+                <!--Room Check-->
+                <input type="text" class="hidden" id="getRoomId_py" name="getRoomId_py" value="">
+                <input type="text" class="hidden" id="getRoomPre_py" name="getRoomPre_py" value="">
+
+                <!--Bulb Check-->
+                <input type="text" class="hidden" id="getBulbId_py" name="getBulbId_py" value="">
+                <input type="text" class="hidden" id="getBulbState_py" name="getBulbState_py" value="">
+
+                <!--Bulb Switch-->
+                <input type="text" class="hidden" id="getBulbSwId_py" name="getBulbSwId_py" value="">
+                <input type="text" class="hidden" id="getBulbSwitch_py" name="getBulbSwitch_py" value="">
+            </form>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <br />
+            <div class="col-lg-3 col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center"><strong>NAVIGATION MENU</strong></div>
+                    <div class="panel-body">
+                        <button id="addRoom_fromNav" class="btn btn-primary app-nav-btns"><i class="fas fa-pencil-ruler"></i> &nbsp;Add Room</button><br /><br />
+
+                        <button id="removeRoom_fromNav" class="btn btn-danger app-nav-btns"><i class="fas fa-pencil-ruler"></i> &nbsp;Remove Room</button><br />
+                        <span id="noRoom-delID"></span><hr />
+
+                        <button id="refreshFloor_fromNav" class="btn btn-default app-nav-btns"><i class="fas fa-retweet"></i> &nbsp;Refresh Floor</button><br /><br />
+
+                        <br><hr />
+                        <button id="viewLogs-btn" class="btn btn-info app-nav-btns" data-toggle="modal" data-target="#logsModal"><i class="fas fa-retweet"></i> &nbsp;View Logs</button>
+                        <br><br>
+                        <button id="notifications-btn" class="btn btn-primary app-nav-btns" data-toggle="modal" data-target="#notifModal"><i class="fas fa-bell"></i> &nbsp;View Notifications <span class="badge badge-light">4</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9">
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>HOUSE FLOOR</strong></div>
+                        <div class="panel-body">
+                            <div id="floorDrawingArea">
+                                <h1 class="noRooms-head">NO ROOMS ADDED<br>TO ADD NEW ROOMS CLICK ON ADD ROOM BUTTON ON LEFT</h1>
+                                <!--room1-->
+                                <div id="roomId_1" class="module_holderID module_holder col-md-4" style="display: none;">
+                                    <p class="module_p">ROOM # <span id="floorRoom-no1">01</span></p>
+                                    <hr><br>
+                                    <a href="#">
+                                        <img class="tempImg_ui rounded-circle" src="/static/Content/img/tempSymbol.png" alt="">
+                                    </a>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <span class="temp_ui">LIVE TEMPERATURE</span>
+                                            <span class="tempVal_ui" id="temp_room1">0.0<span>&nbsp;&nbsp;&#xb0;C</span></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="temp_ui">REQ. TEMPERATURE</span>
+                                            <input class="form-control" type="number" value="22" min="16" max="26" id="tempReq_room1">
+                                            <i class="reqTemp-dotC">&#xb0;C</i>
+                                        </div>
+                                    </div>
+                                    <div class="container temp_statusBox center center-block text-center">
+                                        <span>
+                                            <img class="fan-heater" src="/static/Content/img/fan-on.png" id="fanImg-room1" alt="">
+                                        </span>
+                                        &nbsp;&nbsp;&nbsp;<span>ON/OFF</span>&nbsp;&nbsp;&nbsp;
+                                        <span>
+                                            <img class="fan-heater" src="/static/Content/img/heater-off.png" id="heatImg-room1" alt="">
+                                        </span>
+                                    </div>
+                                    <br><hr>
+
+
+                                    <button type="button" id="addBulb_room1"  class="btn btn-success" style="width: 100%;margin-top: 10px">ADD BULB</button>
+                                    <button type="button" id="removeBulb_room1" class="btn btn-danger" style="width: 100%;margin-top: 10px;display: none;">REMOVE BULB</button>
+                                    <input type="text" id="room1_Bulb_sendStatus" class="hidden" value="OFF" name="room1_Bulb_sendStatus">
+                                    <br><br>
+
+                                    <span class="bulb_status" id="bulbON_1" style="display: none;">
+                                        <div id="par_bulb_statusSpan1">
+                                            <div class="bulb_statusSpan" id="bulb_statusSpan1">
+                                            <span>
+                                                <button id="switchOn_Bulb1" class="btn btn-sm btn-success">Bulb On</button>
+                                                <button id="switchOff_Bulb1" class="btn btn-sm btn-danger" disabled>Bulb Off</button>
+                                            </span>
+                                            <img class="rounded-circle" id="img_Bulb1_ON" src="/static/Content/img/bulb-off.png" alt="" data-toggle="tooltip" data-placement="top" title="BULB STATUS: OFF">
+                                            <img class="rounded-circle" id="img_Bulb1_OFF" src="/static/Content/img/bulb-on.png" alt="" data-toggle="tooltip" data-placement="top" title="BULB STATUS: ON" style="display: none;">
+                                        </div>
+                                        </div>
+
+
+                                        <div class="bulb_ModeSpan">
+                                            <span>
+                                                <h3>BULB MODE <span id="bulb_ModeText1" style="font-size: xx-small">(MANUAL)</span></h3>
+                                                <button id="switchOn_Mode1" class="btn btn-sm btn-success" disabled><i class="fas fa-user-check"></i> MANUAL</button>
+                                                <button id="switchOff_Mode1" class="btn btn-sm btn-info"><i class="fas fa-magic"></i> AUTOMATIC</button>
+                                            </span>
+                                        </div>
+
+                                        <br><hr><button type="button" class="btn btn-primary" style="width: 100%;margin-top: 10px" data-toggle="modal" data-target="#ldrModal1"><i class="fas fa-sliders-h"></i> BRIGHTNESS SETTINGS</button>
+                                    </span>
+                                </div>
+
+                                <!--room2-->
+                                <div id="roomId_2" class="module_holderID module_holder col-md-4" style="display: none;">
+                                    <p class="module_p">ROOM # <span id="floorRoom-no2">02</span></p>
+                                    <hr><br>
+                                    <img class="tempImg_ui rounded-circle" src="/static/Content/img/tempSymbol.png" alt="">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <span class="temp_ui">LIVE TEMPERATURE</span>
+                                            <span class="tempVal_ui" id="temp_room2">0.0<span>&nbsp;&nbsp;&#xb0;C</span></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="temp_ui">REQ. TEMPERATURE</span>
+                                            <input class="form-control" type="number" value="22" min="16" max="26" id="tempReq_room2">
+                                            <i class="reqTemp-dotC">&#xb0;C</i>
+                                        </div>
+                                    </div>
+                                    <div class="container temp_statusBox center center-block text-center">
+                                        <span>
+                                            <img class="fan-heater" src="/static/Content/img/fan-on.png" id="fanImg-room1" alt="">
+                                        </span>
+                                        &nbsp;&nbsp;&nbsp;<span>ON/OFF</span>&nbsp;&nbsp;&nbsp;
+                                        <span>
+                                            <img class="fan-heater" src="/static/Content/img/heater-off.png" id="heatImg-room1" alt="">
+                                        </span>
+                                    </div>
+                                    <br><hr>
+
+
+                                    <button type="button" id="addBulb_room2" class="btn btn-success" style="width: 100%;margin-top: 10px">ADD BULB</button>
+                                    <button type="button" id="removeBulb_room2" class="btn btn-danger" style="width: 100%;margin-top: 10px;display: none;">REMOVE BULB</button>
+                                    <input type="text" id="room2_Bulb_sendStatus" class="hidden" value="OFF" name="room2_Bulb_sendStatus">
+                                    <br><br>
+
+                                    <span class="bulb_status" id="bulbON_2" style="display: none;">
+                                        <div id="par_bulb_statusSpan2">
+                                            <div class="bulb_statusSpan" id="bulb_statusSpan2">
+                                            <span>
+                                                <button id="switchOn_Bulb2" class="btn btn-sm btn-success">Bulb On</button>
+                                                <button id="switchOff_Bulb2" class="btn btn-sm btn-danger" disabled>Bulb Off</button>
+                                            </span>
+                                            <img class="rounded-circle" id="img_Bulb2_ON" src="/static/Content/img/bulb-off.png" alt="" data-toggle="tooltip" data-placement="top" title="BULB STATUS: OFF">
+                                            <img class="rounded-circle" id="img_Bulb2_OFF" src="/static/Content/img/bulb-on.png" alt="" data-toggle="tooltip" data-placement="top" title="BULB STATUS: ON" style="display: none;">
+                                        </div>
+                                        </div>
+
+
+                                        <div class="bulb_ModeSpan">
+                                            <span>
+                                                <h3>BULB MODE <span id="bulb_ModeText2" style="font-size: xx-small">(MANUAL)</span></h3>
+                                                <button id="switchOn_Mode2" class="btn btn-sm btn-success" disabled><i class="fas fa-user-check"></i> MANUAL</button>
+                                                <button id="switchOff_Mode2" class="btn btn-sm btn-info"><i class="fas fa-magic"></i> AUTOMATIC</button>
+                                            </span>
+                                        </div>
+
+                                        <br><hr><button type="button" class="btn btn-primary" style="width: 100%;margin-top: 10px" data-toggle="modal" data-target="#ldrModal2"><i class="fas fa-sliders-h"></i> BRIGHTNESS SETTINGS</button>
+                                    </span>
+                                </div>
+
+                                <!--room3-->
+                                <div id="roomId_3" class="module_holderID module_holder col-md-4" style="display: none;">
+                                    <p class="module_p">ROOM # <span id="floorRoom-no3">03</span></p>
+                                    <hr><br>
+                                    <img class="tempImg_ui rounded-circle" src="/static/Content/img/tempSymbol.png" alt="">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <span class="temp_ui">LIVE TEMPERATURE</span>
+                                            <span class="tempVal_ui" id="temp_room3">0.0<span>&nbsp;&nbsp;&#xb0;C</span></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="temp_ui">REQ. TEMPERATURE</span>
+                                            <input class="form-control" type="number" value="22" min="16" max="26" id="tempReq_room3">
+                                            <i class="reqTemp-dotC">&#xb0;C</i>
+                                        </div>
+                                    </div>
+                                    <div class="container temp_statusBox center center-block text-center">
+                                        <span>
+                                            <img class="fan-heater" src="/static/Content/img/fan-on.png" id="fanImg-room1" alt="">
+                                        </span>
+                                        &nbsp;&nbsp;&nbsp;<span>ON/OFF</span>&nbsp;&nbsp;&nbsp;
+                                        <span>
+                                            <img class="fan-heater" src="/static/Content/img/heater-off.png" id="heatImg-room1" alt="">
+                                        </span>
+                                    </div>
+                                    <br><hr>
+
+
+                                    <button type="button" id="addBulb_room3" class="btn btn-success" style="width: 100%;margin-top: 10px">ADD BULB</button>
+                                    <button type="button" id="removeBulb_room3" class="btn btn-danger" style="width: 100%;margin-top: 10px;display: none;">REMOVE BULB</button>
+                                    <input type="text" id="room3_Bulb_sendStatus" class="hidden" value="OFF" name="room3_Bulb_sendStatus">
+                                    <br><br>
+
+                                    <span class="bulb_status" id="bulbON_3" style="display: none;">
+                                        <div id="par_bulb_statusSpan3">
+                                            <div id="bulb_statusSpan3" class="bulb_statusSpan">
+                                            <span>
+                                                <button id="switchOn_Bulb3" class="btn btn-sm btn-success">Bulb On</button>
+                                                <button id="switchOff_Bulb3" class="btn btn-sm btn-danger" disabled>Bulb Off</button>
+                                            </span>
+                                            <img class="rounded-circle" id="img_Bulb3_ON" src="/static/Content/img/bulb-off.png" alt="" data-toggle="tooltip" data-placement="top" title="BULB STATUS: OFF">
+                                            <img class="rounded-circle" id="img_Bulb3_OFF" src="/static/Content/img/bulb-on.png" alt="" data-toggle="tooltip" data-placement="top" title="BULB STATUS: ON" style="display: none;">
+                                        </div>
+                                        </div>
+
+
+                                        <div class="bulb_ModeSpan">
+                                            <span>
+                                                <h3>BULB MODE <span id="bulb_ModeText3" style="font-size: xx-small">(MANUAL)</span></h3>
+                                                <button id="switchOn_Mode3" class="btn btn-sm btn-success" disabled><i class="fas fa-user-check"></i> MANUAL</button>
+                                                <button id="switchOff_Mode3" class="btn btn-sm btn-info"><i class="fas fa-magic"></i> AUTOMATIC</button>
+                                            </span>
+                                        </div>
+
+                                        <br><hr><button type="button" class="btn btn-primary" style="width: 100%;margin-top: 10px" data-toggle="modal" data-target="#ldrModal3"><i class="fas fa-sliders-h"></i> BRIGHTNESS SETTINGS</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- modal for logs -->
+    <div class="modal fade" id="logsModal" tabindex="-1" role="dialog" aria-labelledby="logsModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel">
+                        <strong>APPLICATION LOGS</strong>
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Message</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>12:35 PM</td>
+                            <td>12/05/2019</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus congue ex justo, in accumsan diam pretium ut. </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>12:35 PM</td>
+                            <td>12/05/2019</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus congue ex justo, in accumsan diam pretium ut. </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>12:35 PM</td>
+                            <td>12/05/2019</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus congue ex justo, in accumsan diam pretium ut. </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <nav class="text-center" aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal for notif -->
+    <div class="modal fade" id="notifModal" tabindex="-1" role="dialog" aria-labelledby="notifModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="notifModalLabel">
+                        <strong>NOTIFICATIONS</strong>
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Message</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>12:35 PM</td>
+                            <td>12/05/2019</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus congue ex justo, in accumsan diam pretium ut. </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>12:35 PM</td>
+                            <td>12/05/2019</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus congue ex justo, in accumsan diam pretium ut. </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>12:35 PM</td>
+                            <td>12/05/2019</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus congue ex justo, in accumsan diam pretium ut. </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <nav class="text-center" aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal for LDR Settings 1 -->
+    <div class="modal fade" id="ldrModal1" tabindex="-1" role="dialog" aria-labelledby="ldrModalLabel1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="ldrModalLabel1">
+                        <strong>BRIGHTNESS SETTINGS - ROOM # 01</strong>
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <div class="slidecontainer">
+                        <label for="myRange_ldr1" class="text-center center-block">SELECT THE DESIRED BRIGHTNESS</label>
+                        <input type="range" min="1" max="100" value="50" class="slider_modal" id="myRange_ldr1">
+                    </div>
+                    <h3 class="valueSlider_p">VALUE: <span id="valueSlider_ldr1"></span> %</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal for LDR Settings 2 -->
+    <div class="modal fade" id="ldrModal2" tabindex="-1" role="dialog" aria-labelledby="ldrModalLabel2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="ldrModalLabel2">
+                        <strong>BRIGHTNESS SETTINGS - ROOM # 02</strong>
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <div class="slidecontainer">
+                        <label for="myRange_ldr1" class="text-center center-block">SELECT THE DESIRED BRIGHTNESS</label>
+                        <input type="range" min="1" max="100" value="50" class="slider_modal" id="myRange_ldr2">
+                    </div>
+                    <h3 class="valueSlider_p">VALUE: <span id="valueSlider_ldr2"></span> %</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal for LDR Settings 3 -->
+    <div class="modal fade" id="ldrModal3" tabindex="-1" role="dialog" aria-labelledby="ldrModalLabel3">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="ldrModalLabel3">
+                        <strong>BRIGHTNESS SETTINGS - ROOM # 03</strong>
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <div class="slidecontainer">
+                        <label for="myRange_ldr1" class="text-center center-block">SELECT THE DESIRED BRIGHTNESS</label>
+                        <input type="range" min="1" max="100" value="50" class="slider_modal" id="myRange_ldr3">
+                    </div>
+                    <h3 class="valueSlider_p">VALUE: <span id="valueSlider_ldr3"></span> %</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container body-content hidden">
+        <hr />
+        <footer>
+            <p>My ASP.NET Application</p>
+        </footer>
+    </div>
+
+
+    <script type="text/javascript" src="/static/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script type="text/javascript" src="/static/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/Scripts/myScript.js"></script>
+
+
+</body>
+</html>

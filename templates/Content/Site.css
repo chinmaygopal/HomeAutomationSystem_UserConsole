@@ -1,0 +1,242 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    overflow-x: hidden;
+
+    background-image: url('../Content/img/body-background.jpg');
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.application-heading {
+    font-size: 11px !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    display: block !important;
+    width: 100% !important;
+    color: white !important;
+}
+
+
+/*Floor*/
+#floorDrawingArea{
+    height: 331px;
+}
+.app-nav-btns {
+    width: 100%;
+}
+
+
+/*ROOM ALLOCATION*/
+.noRooms-head{
+    text-align: center;
+    color: #a5a5a5;
+    font-size: large;
+}
+.module_holder {
+    background-color: #1fc8db;
+    background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    width: 240px;
+    padding: 15px;
+    margin: 15px;
+}
+.module_holder hr {
+    padding: 0 !important;
+    margin: 0 15px !important;
+}
+.module_p {
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Pacifico', cursive;
+}
+.module_p span{
+    font-size: x-large;
+}
+
+.noRoom-del{
+    color: #ff0000 !important;
+    text-align:center;
+    margin-bottom: -20px;
+}
+
+#addBulb-btn{
+    font-family: fantasy;
+    color: #c49403;
+}
+#addBulb-btn i{
+    color: #c49403 !important;
+}
+.addBulb-heading{
+    text-align: center;
+    margin: 0;
+}
+.bulbOffImg {
+    margin: 10px 25px !important;
+    width: 40px !important;
+    cursor: pointer;
+}
+.bulb_status{
+    color: white;
+    font-weight: bold;
+    font-size: large;
+text-align: center;
+    margin: 0 auto;
+    display: block;
+
+}
+.bulb_statusSpan{
+    border: 1px solid white;
+    padding: 10px 0px;
+    background-color: #607d8b;
+}
+
+.toggle-group .toggle-on{
+    background: #fed000 !important;
+}
+
+.bulbStatus_room{
+    color: red;
+}
+.bulb_status img{
+    width: 45px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.temp_ui{
+    font-size: 12px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+}
+.tempImg_ui{
+    width: 46px;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+}
+.tempVal_ui{
+    font-family: "Agency FB";
+    font-size: xx-large;
+    text-align: center;
+    display: block;
+    color: white;
+    border: 1px solid white;
+}
+.tempVal_ui span{
+    font-size: medium;
+}
+input[type=number]{
+    padding-bottom: 6px;
+    padding-top: 6px;
+    height: auto;
+    font-size: x-large;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 1;
+    background: red;
+}
+
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+}
+
+.slidecontainer label{
+    color: grey;
+    font-weight: 100 !important;
+}
+
+/* The slider itself */
+.slider_modal {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 15px; /* Specified height */
+    border-radius: 5px;
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+
+    text-align: center;
+    display: block;
+    margin: 15px auto 0 auto;
+    width: 342px;
+}
+
+/* Mouse-over effects */
+.slider_modal:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider_modal::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    border-radius: 50%;
+    background: #4CAF50; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.slider_modal::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    border-radius: 50%;
+    background: #4CAF50; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.valueSlider_p{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.reqTemp-dotC{
+    position: absolute;
+    top: 43px;
+    left: 55px;
+    font-weight: 700;
+}
+
+.temp_statusBox{
+    border: 1px solid white;
+    width: 100%;
+    margin-top: 7px;
+    color: white;
+    font-size: 15px;
+    padding: 11px;
+    font-weight: 700;
+}
+
+.fan-heater{
+    width: 30px;
+}
+.bulb_ModeSpan h3{
+    font-size: small;
+}
